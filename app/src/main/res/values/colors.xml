@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main">#007fff</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#0fff</color>
+    <color name="white">#FFF</color>
+    <color name="black">#333</color>
+    <color name="gray_6">#666</color>
+    <color name="gray">#888</color>
+    <color name="gray_b">#999</color>
+    <color name="gray_d">#ddd</color>
+    <color name="light_gray">#EEE</color>
+    <color name="extra_light_gray">#f4f4f4</color>
+    <color name="orange">#ff7f00</color>
+    <color name="contact_detail_bg">#d000</color>
+    <color name="common_bg_pressed">#2000</color>
+    <color name="common_bg_active">#307f</color>
+    <color name="green_bg">#09b007</color>
+    <color name="light_green_bg">#09d217</color>
+    <color name="red_bg">#f95454</color>
+    <color name="job_send">#1296db</color>
+    <color name="job_waiting">#d81e06</color>
+    <color name="job_done">#ffcc00</color>
+    <color name="job_complete">#87d978</color>
+    <color name="job_node_sender">#007fff</color>
+    <color name="common_alpha_gray">#8888</color>
+    <color name="common_alpha_black">#c333</color>
+</resources>
+
