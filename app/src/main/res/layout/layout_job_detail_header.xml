@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="6dp"
+    xmlns:tools="http://schemas.android.com/tools"
     >
     <LinearLayout
         android:id="@+id/type_bar"
@@ -61,7 +62,10 @@
             android:paddingBottom="5dp"
             android:textSize="@dimen/small_text"
             android:textColor="#d62"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:text="@string/long_title_demo"
+            tools:visibility="visible"
+            />
 
     </LinearLayout>
 </RelativeLayout>

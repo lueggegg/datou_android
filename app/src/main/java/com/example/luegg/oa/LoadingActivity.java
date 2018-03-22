@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.luegg.oa.base.BaseActivity;
-import com.example.luegg.oa.base.SharedData;
 import com.example.luegg.oa.base.bean.UserBean;
 import com.example.luegg.oa.base.http.ApiHttpRequest;
 import com.example.luegg.oa.login.LoginActivity;

@@ -25,7 +25,7 @@
     <color name="job_done">#ffcc00</color>
     <color name="job_complete">#87d978</color>
     <color name="job_node_sender">#007fff</color>
-    <color name="common_alpha_gray">#8888</color>
+    <color name="common_alpha_gray">#c888</color>
     <color name="common_alpha_black">#c333</color>
 </resources>
 

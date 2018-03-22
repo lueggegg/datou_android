@@ -17,6 +17,7 @@ import com.example.luegg.oa.base.BaseActivity;
 import com.example.luegg.oa.base.CommonUtil;
 import com.example.luegg.oa.base.Constant;
 import com.example.luegg.oa.base.Logger;
+import com.example.luegg.oa.base.SharedData;
 import com.example.luegg.oa.base.bean.BaseBean;
 import com.example.luegg.oa.base.bean.JobBean;
 import com.example.luegg.oa.base.bean.JobNodeBean;
@@ -342,6 +343,16 @@ public class JobDetailActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     memberSelectorContainer.setVisibility(View.VISIBLE);
+                    int def = 5;
+                    int index = SharedData.getInt(Constant.SHARED_KEY_SHOW_MEMBER_SELECTOR_GUIDE, def);
+                    if (index > 0) {
+                        index--;
+                        SharedData.saveInt(Constant.SHARED_KEY_SHOW_MEMBER_SELECTOR_GUIDE, index);
+                        View view = memberSelectorContainer.findViewById(R.id.member_selector_prompt);
+                        view.setVisibility(View.VISIBLE);
+                        view.setAlpha(1);
+                        view.animate().setDuration(2000).alpha(0).setStartDelay(2000).start();
+                    }
                 }
             });
         }

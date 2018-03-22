@@ -23,6 +23,18 @@ public class SharedData {
         editor.apply();
     }
 
+    public static void saveInt(String key, int value) {
+        SharedPreferences preferences = getSharedPreferences(key);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("data", value);
+        editor.apply();
+    }
+
+    public static int getInt(String key, int def) {
+        SharedPreferences preferences = getSharedPreferences(key);
+        return preferences.getInt("data", def);
+    }
+
     public static void saveString(String key, String value) {
         SharedPreferences preferences = getSharedPreferences(key);
         SharedPreferences.Editor editor = preferences.edit();

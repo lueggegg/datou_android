@@ -19,6 +19,7 @@ public class Constant {
     public static final String SHARED_KEY_CUR_USER = "cur_user";
     public static final String SHARED_KEY_HISTORY_USER = "history_user";
     public static final String SHARED_KEY_COOKIES = "cookies";
+    public static final String SHARED_KEY_SHOW_MEMBER_SELECTOR_GUIDE = "guide_member_selector";
 
     public static final int OPERATION_MASK_EMPLOYEE = 16;
     public static final int OPERATION_MASK_INDEX_PAGE = 32;

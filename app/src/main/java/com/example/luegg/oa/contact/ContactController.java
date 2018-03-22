@@ -134,6 +134,7 @@ public class ContactController {
         if (this.container == null) return;
         new ApiHttpRequest.PostBuilder().url(ApiHttpRequest.getApiUrl("query_account_list"))
                 .add("type", 1)
+                .add("status", 1)
                 .executeForArray(UserBean.class, queryCallback);
     }
 
