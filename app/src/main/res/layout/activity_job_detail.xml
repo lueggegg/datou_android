@@ -59,6 +59,7 @@
                 android:paddingRight="6dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
+                android:maxLines="3"
                 android:background="@drawable/shape_corner_editor_bg"/>
             <TextView
                 android:id="@+id/reply_btn"
@@ -200,5 +201,26 @@
                 tools:visibility="visible"/>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/top_bottom_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="56dp">
+        <ImageView
+            android:id="@+id/top_btn"
+            android:layout_width="@dimen/top_bottom_btn_size"
+            android:layout_height="@dimen/top_bottom_btn_size"
+            android:src="@drawable/icon_top"/>
+        <ImageView
+            android:id="@+id/bottom_btn"
+            android:layout_width="@dimen/top_bottom_btn_size"
+            android:layout_height="@dimen/top_bottom_btn_size"
+            android:src="@drawable/icon_bottom"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
     <include layout="@layout/merge_common_waiting" />
 </RelativeLayout>

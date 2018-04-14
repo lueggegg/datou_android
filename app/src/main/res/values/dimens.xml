@@ -22,4 +22,5 @@
     <dimen name="common_image_btn">24dp</dimen>
     <dimen name="common_image_btn_margin">10dp</dimen>
     <dimen name="common_image_btn_text">12sp</dimen>
+    <dimen name="top_bottom_btn_size">36dp</dimen>
 </resources>

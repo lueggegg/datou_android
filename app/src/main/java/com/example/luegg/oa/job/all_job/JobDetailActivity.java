@@ -1,5 +1,7 @@
 package com.example.luegg.oa.job.all_job;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -55,6 +58,8 @@ public class JobDetailActivity extends BaseActivity {
     private View memberSelectorContainer;
     List<Integer> selectedMember;
 
+    private View topBottomContainer;
+
     public static class AutoJobNextProcessor extends BaseBean {
         public int uid;
         public String dept;
@@ -77,6 +82,32 @@ public class JobDetailActivity extends BaseActivity {
         detailRcView.setLayoutManager(new LinearLayoutManager(this));
         detailAdapter = new JobDetailRcViewAdapter();
         detailRcView.setAdapter(detailAdapter);
+
+        topBottomContainer = findViewById(R.id.top_bottom_container);
+        findViewById(R.id.top_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollToTop();
+            }
+        });
+
+        findViewById(R.id.bottom_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollToBottom();
+            }
+        });
+        detailRcView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+                if (action == MotionEvent.ACTION_UP) {
+                    displayTopBottomContainer();
+//                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     protected void initData() {
@@ -88,6 +119,33 @@ public class JobDetailActivity extends BaseActivity {
         }
 
         refresh();
+    }
+
+    private void displayTopBottomContainer() {
+        topBottomContainer.animate().cancel();
+        topBottomContainer.setVisibility(View.VISIBLE);
+        topBottomContainer.setAlpha(1);
+        animateHideTopBottomContainer();
+    }
+
+    private void animateHideTopBottomContainer() {
+        topBottomContainer.animate().alpha(0).setDuration(1000).setStartDelay(2000).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                topBottomContainer.setVisibility(View.GONE);
+            }
+        }).start();
+    }
+
+    private void scrollToTop() {
+        detailRcView.smoothScrollToPosition(0);
+        displayTopBottomContainer();
+    }
+
+    private void scrollToBottom() {
+        detailRcView.smoothScrollToPosition(detailAdapter.getItemCount() - 1);
+        displayTopBottomContainer();
     }
 
     private void loadMainInfo() {
@@ -102,7 +160,6 @@ public class JobDetailActivity extends BaseActivity {
                     public <T> void onObject(T object) {
                         mainInfoCache = (JobBean) object;
                         fetchingMainInfo = false;
-                        notifyRead();
                         checkData();
                     }
                 });
@@ -172,6 +229,7 @@ public class JobDetailActivity extends BaseActivity {
             if (autoJob) {
                 initAutoJob();
             } else {
+                notifyRead();
                 setViewData();
             }
         } else {
@@ -231,6 +289,7 @@ public class JobDetailActivity extends BaseActivity {
     private void setViewData() {
         detailAdapter.setJobNodeData(mainInfoCache, nodeListCache, recSetCache);
         loadingView.setVisibility(View.GONE);
+        scrollToBottom();
     }
 
     private void setNoReply() {

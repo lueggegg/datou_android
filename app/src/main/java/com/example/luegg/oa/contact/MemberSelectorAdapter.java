@@ -82,7 +82,7 @@ public class MemberSelectorAdapter extends RecyclerView.Adapter<MemberSelectorAd
             MemberBean memberBean = memberBeanMap.get(bean.getDeptId());
             if (memberBean == null) {
                 memberBean = new MemberBean();
-                memberBean.fold = false;
+                memberBean.fold = true;
                 memberBean.userList = new ArrayList<>();
                 DeptBean deptBean = new DeptBean();
                 deptBean.id = bean.getDeptId();
@@ -148,15 +148,20 @@ public class MemberSelectorAdapter extends RecyclerView.Adapter<MemberSelectorAd
             accountView.setText(userBean.account);
             nameView.setText(userBean.name);
             positionView.setText(userBean.position);
-            CheckBox checkBox = (CheckBox) itemView.findViewById(R.id.member_checkbox);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            final CheckBox checkBox = (CheckBox) itemView.findViewById(R.id.member_checkbox);
+            checkBox.setEnabled(userBean.state != -1);
+            checkBox.setChecked(!(userBean.state == 0));
+            checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
+                public void onClick(View view) {
+                    if (checkBox.isChecked()) {
+                        userBean.state = 1;
                         selectedSet.add(userBean.id);
                     } else {
+                        userBean.state = 0;
                         selectedSet.remove(userBean.id);
                     }
+
                 }
             });
         }

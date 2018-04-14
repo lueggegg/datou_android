@@ -19,6 +19,7 @@ public class UserBean  extends BaseBean{
     public int operation_mark;
     public int authority;
     public String password;
+    public int state;
 
     public int getUid() {
         return id > 0? id : uid;

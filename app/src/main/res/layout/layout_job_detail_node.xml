@@ -71,6 +71,14 @@
                 android:text="@string/long_text_demo"
                 android:textSize="@dimen/job_node_content"
                 android:textColor="@color/black"/>
+            <ss.com.bannerslider.views.BannerSlider
+                android:id="@+id/image_banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone"
+                android:padding="1dp"
+                android:background="@color/gray_b"
+                />
         </LinearLayout>
 
         <RelativeLayout

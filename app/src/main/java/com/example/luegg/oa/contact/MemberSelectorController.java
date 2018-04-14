@@ -46,7 +46,8 @@ public class MemberSelectorController {
         for (UserBean filterBean : filterList) {
             for (UserBean userBean : userListCache) {
                 if (userBean.getUid() == filterBean.getUid()) {
-                    userListCache.remove(userBean);
+//                    userListCache.remove(userBean);
+                    userBean.state = -1;
                     break;
                 }
             }
@@ -58,7 +59,8 @@ public class MemberSelectorController {
         for (Integer uid : filterList) {
             for (UserBean userBean : userListCache) {
                 if (userBean.getUid() == uid) {
-                    userListCache.remove(userBean);
+//                    userListCache.remove(userBean);
+                    userBean.state = -1;
                     break;
                 }
             }

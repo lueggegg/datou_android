@@ -4,11 +4,11 @@
 
     <!-- Required -->
     <permission
-        android:name="com.example.luegg.oa.permission.JPUSH_MESSAGE"
+        android:name="com.lugg.longgang.oa.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
-    <uses-permission android:name="com.example.luegg.oa.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.lugg.longgang.oa.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -64,7 +64,7 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.example.luegg.oa" />
+                <category android:name="com.lugg.longgang.oa" />
             </intent-filter>
         </activity>
 
@@ -85,7 +85,7 @@
         <!-- since 3.0.9 Required SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DataProvider"
-            android:authorities="com.example.luegg.oa.DataProvider"
+            android:authorities="com.lugg.longgang.oa.DataProvider"
             android:exported="true" />
 
         <!-- Required SDK核心功能 -->
@@ -96,7 +96,7 @@
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
                 <!-- Required  显示通知栏 -->
-                <category android:name="com.example.luegg.jpush_demo" />
+                <category android:name="com.example.luegg.oa" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -118,7 +118,7 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
-                <category android:name="com.example.luegg.oa" />
+                <category android:name="com.lugg.longgang.oa" />
             </intent-filter>
         </service>
 
@@ -141,7 +141,7 @@
                 <!-- Required  用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.example.luegg.oa" />
+                <category android:name="com.lugg.longgang.oa" />
             </intent-filter>
         </receiver>
 
@@ -151,7 +151,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="f7430a1c1812e2102d67e1af" />
+            android:value="c8198bb18d193a0d6b93fbf8" />
         <!-- </>值来自开发者平台取得的AppKey -->
 
         <activity

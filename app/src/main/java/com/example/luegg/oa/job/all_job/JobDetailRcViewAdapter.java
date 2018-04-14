@@ -10,13 +10,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.luegg.oa.R;
+import com.example.luegg.oa.base.CommonUtil;
 import com.example.luegg.oa.base.Constant;
+import com.example.luegg.oa.base.Logger;
+import com.example.luegg.oa.base.bean.AttachmentBean;
 import com.example.luegg.oa.base.bean.JobBean;
 import com.example.luegg.oa.base.bean.JobNodeBean;
 import com.example.luegg.oa.base.bean.UserBean;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.events.OnBannerClickListener;
+import ss.com.bannerslider.views.BannerSlider;
 
 /**
  * Created by luegg on 2017/12/13.
@@ -87,7 +96,7 @@ public class JobDetailRcViewAdapter extends RecyclerView.Adapter<JobDetailRcView
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        View itemView = holder.itemView;
+        final View itemView = holder.itemView;
         NodeItem nodeItem = nodeItemList.get(position);
         Resources res = itemView.getResources();
         if (isHeader(position)) {
@@ -136,6 +145,30 @@ public class JobDetailRcViewAdapter extends RecyclerView.Adapter<JobDetailRcView
                 textView.setText(nodeBean.parseAttachment());
             } else {
                 attachmentContainer.setVisibility(View.GONE);
+            }
+            try {
+                BannerSlider bannerSlider = (BannerSlider) itemView.findViewById(R.id.image_banner);
+                if (nodeBean.has_img && nodeBean.img_attachment != null && nodeBean.img_attachment.size() > 0) {
+                    List<Banner> banners = new ArrayList<>();
+                    final List<String> urls = new ArrayList<>();
+                    for (AttachmentBean bean : nodeBean.img_attachment) {
+                        String path = CommonUtil.getWholeUrl(bean.path);
+                        banners.add(new RemoteBanner(path));
+                        urls.add(path);
+                    }
+                    bannerSlider.setBanners(banners);
+                    bannerSlider.setVisibility(View.VISIBLE);
+                    bannerSlider.setOnBannerClickListener(new OnBannerClickListener() {
+                        @Override
+                        public void onClick(int position) {
+                            new ImageViewer.Builder<>(itemView.getContext(), urls).setStartPosition(position).show();
+                        }
+                    });
+                } else {
+                    bannerSlider.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                Logger.e(TAG, e.toString());
             }
         }
     }
