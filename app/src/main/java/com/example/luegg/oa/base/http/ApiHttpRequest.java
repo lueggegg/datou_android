@@ -31,6 +31,8 @@ import okhttp3.Response;
  * Created by luegg on 2017/12/1.
  */
 public class ApiHttpRequest {
+    static String TAG = "ApiHttpRequest";
+
     public interface ObjectCallback{
         void onFailed();
         void onString(String response);
@@ -115,6 +117,7 @@ public class ApiHttpRequest {
     }
 
     private <T> void fetchObject(Call call, final Class<T> clazz, final ObjectCallback objectCallback) {
+        Logger.d(TAG, "request: " + call.request().url());
         call.enqueue(new CommonCallback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -145,6 +148,7 @@ public class ApiHttpRequest {
     }
 
     private <T> void fetchArray(Call call, final Class<T> clazz, final ObjectCallback objectCallback) {
+        Logger.d(TAG, "request: " + call.request().url());
         call.enqueue(new CommonCallback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {

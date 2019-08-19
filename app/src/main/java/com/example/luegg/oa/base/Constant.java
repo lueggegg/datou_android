@@ -13,8 +13,8 @@ public class Constant {
 
     public static final String EMU_HOST = "http://10.0.2.2:5505";
     public static final String LOCAL_HOST = "http:/172.20.10.2:5505";
-    public static final String REMOTE_HOST = "http://203.88.48.251:15505";
-    public static final String HOST = DEBUG? EMU_HOST : "http://203.88.48.251:15505";
+    public static final String REMOTE_HOST = "http://oa.lgtv.net.cn";
+    public static final String HOST = REMOTE_HOST;
 
     public static final String SHARED_KEY_CUR_USER = "cur_user";
     public static final String SHARED_KEY_HISTORY_USER = "history_user";
@@ -52,6 +52,11 @@ public class Constant {
     public static final int TYPE_JOB_CUSTOM_NEW = 21;
     public static final int TYPE_JOB_SYSTEM_MSG = 22;
     public static final int TYPE_JOB_DYNAMIC = 23;
+    public static final int TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW = 24;
+    public static final int TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW = 25;
+    public static final int TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW = 26;
+    public static final int TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW = 27;
+    public static final int TYPE_JOB_ROLL_BACK_LEAVE = 28;
     private static final int MAX_TYPE_JOB = 50;
 
     public static final int TYPE_JOB_SUB_TYPE_BRANCH = 1;
@@ -74,6 +79,17 @@ public class Constant {
     public static final int STATUS_JOB_MARK_COMPLETED = 3;
     public static final int STATUS_JOB_MARK_NEW_REPLY = 4;
     public static final int STATUS_JOB_MARK_SYS_MSG = 5;
+
+    public static final int job_sequence_add = 0;
+    public static final int job_sequence_pre_judge = 1;
+    public static final int job_sequence_leader_judge = 2;
+    public static final int job_sequence_via_leader_judge = 3;
+    public static final int job_sequence_hr_leader_judge = 4;
+    public static final int job_sequence_main_leader_judge = 5;
+    public static final int job_sequence_hr_record = 6;
+    public static final int job_sequence_rolling_back = 10;
+    public static final int job_sequence_rolled_back = 11;
+    public static final int job_sequence_roll_back_rejected = 12;
 
     public static String[] job_type_map;
     public static String[] job_status_map;
@@ -107,6 +123,10 @@ public class Constant {
         job_type_map[TYPE_JOB_DOC_REPORT] = "呈报表";
         job_type_map[TYPE_JOB_APPLY_RESET_PSD] = "重置密码";
         job_type_map[TYPE_JOB_SYSTEM_MSG] = "系统消息";
+        job_type_map[TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW] = "中层请假";
+        job_type_map[TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW] = "中层请假";
+        job_type_map[TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW] = "员工请假";
+        job_type_map[TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW] = "员工请假";
 
         final int max_job_status = 6;
         job_status_map = new String[max_job_status];
@@ -156,5 +176,9 @@ public class Constant {
         sys_msg_type_map[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY] = "生日祝福";
         sys_msg_type_map[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB] = "系统撤回";
 //        sys_msg_type_map[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_OTHER] = "其他消息";
+    }
+
+    static public boolean isWorkOff(int type) {
+        return type >= TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW && type <=TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW;
     }
 }

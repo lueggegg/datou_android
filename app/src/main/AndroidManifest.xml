@@ -157,8 +157,9 @@
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".job.all_job.JobDetailActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".job.all_job.JobDetailActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".job.all_job.JobListActivity" />
         <activity android:name=".notification.DummyActivity">
             <intent-filter>
@@ -166,7 +167,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".job.all_job.BirthdayActivity" />
-        <activity android:name=".my.AlterPasswordActivity"></activity>
+        <activity android:name=".my.AlterPasswordActivity" />
+        <activity android:name=".job.all_job.WorkOffActivity"></activity>
     </application>
 
 </manifest>

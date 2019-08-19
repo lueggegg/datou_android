@@ -47,6 +47,7 @@ public class JobDetailActivity extends BaseActivity {
     private List<UserBean> recSetCache;
 
     private boolean autoJob;
+    private boolean workOff;
     private boolean canReply = true;
     private boolean invokedByMyself;
     private View replyBar;
@@ -222,12 +223,20 @@ public class JobDetailActivity extends BaseActivity {
 
     private void initOperation() {
         autoJob = mainInfoCache.type != Constant.TYPE_JOB_OFFICIAL_DOC && mainInfoCache.type != Constant.TYPE_JOB_DOC_REPORT;
+        workOff = Constant.isWorkOff(mainInfoCache.type);
         invokedByMyself = mainInfoCache.invoker == LoginUtil.getMyUid();
         if (mainInfoCache.job_status == Constant.STATUS_JOB_PROCESSING) {
             replyBar.setVisibility(View.VISIBLE);
             initCommonOperation();
             if (autoJob) {
-                initAutoJob();
+                if (!workOff) {
+                    initAutoJob();
+                } else {
+                    canReply = true;
+                    initWorkOffReplyOPeration();
+                    initWorkOffRejectOperation();
+                    setViewData();
+                }
             } else {
                 notifyRead();
                 setViewData();
@@ -256,15 +265,12 @@ public class JobDetailActivity extends BaseActivity {
                                 }
                             }
                         }
-                        View rejectWarning = findViewById(R.id.reject_warning);
                         if (canReply) {
-                            rejectWarning.setVisibility(View.VISIBLE);
-                            rejectWarning.animate().setDuration(2000).alpha(0).setStartDelay(2000).start();
                             initRejectOperation();
                         }
                          else if (hasProcessor) {
+                            View rejectWarning = findViewById(R.id.reject_warning);
                             rejectWarning.setVisibility(View.GONE);
-
                             String content = "{*【以下员工，待处理该工作流：】*}\n";
                             String divider = "    ";
                             for (AutoJobNextProcessor processor : userList) {
@@ -360,6 +366,10 @@ public class JobDetailActivity extends BaseActivity {
     }
 
     private void initRejectOperation() {
+        View rejectWarning = findViewById(R.id.reject_warning);
+        rejectWarning.setVisibility(View.VISIBLE);
+        rejectWarning.animate().setDuration(2000).alpha(0).setStartDelay(2000).start();
+
         View replyBtn = findViewById(R.id.reply_btn);
         replyBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -371,6 +381,52 @@ public class JobDetailActivity extends BaseActivity {
                         new ApiHttpRequest.PostBuilder().url(ApiHttpRequest.getApiUrl("process_auto_job"))
                                 .add("job_id", job_id)
                                 .add("job_type", mainInfoCache.type)
+                                .add("op", "reject")
+                                .add("content", CommonUtil.wrapJobContent(content))
+                                .executeForStatus(operationCallback);
+                    }
+                });
+                return true;
+            }
+        });
+    }
+
+    private void initWorkOffReplyOPeration() {
+        View replyBtn = findViewById(R.id.reply_btn);
+        replyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = ((EditText)findViewById(R.id.reply_edit)).getText().toString();
+                if (content.isEmpty()) {
+                    content = "同意";
+                }
+                ApiHttpRequest.PostBuilder builder = new ApiHttpRequest.PostBuilder();
+                builder.url(ApiHttpRequest.getApiUrl("work_off"))
+                        .add("job_id", job_id)
+                        .add("op", "reply")
+                        .add("content", CommonUtil.wrapJobContent(content))
+                        .executeForStatus(operationCallback);
+            }
+        });
+    }
+
+    private void initWorkOffRejectOperation() {
+        View rejectWarning = findViewById(R.id.reject_warning);
+        rejectWarning.setVisibility(View.VISIBLE);
+        rejectWarning.animate().setDuration(2000).alpha(0).setStartDelay(2000).start();
+        View replyBtn = findViewById(R.id.reply_btn);
+        replyBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                CommonUtil.showCommonDialog(getActivity(), "提示", "拒绝并归档该申请？", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String content = ((EditText)findViewById(R.id.reply_edit)).getText().toString();
+                        if (content.isEmpty()) {
+                            content = "退回";
+                        }
+                        new ApiHttpRequest.PostBuilder().url(ApiHttpRequest.getApiUrl("work_off"))
+                                .add("job_id", job_id)
                                 .add("op", "reject")
                                 .add("content", CommonUtil.wrapJobContent(content))
                                 .executeForStatus(operationCallback);
